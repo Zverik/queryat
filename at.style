@@ -1,0 +1,8 @@
+way      admin_level text polygon
+way      area        text
+way      boundary    text polygon
+node,way name        text linear
+node,way name:en     text linear
+node,way name:ru     text linear
+node,way place       text polygon
+node,way population  text polygon
