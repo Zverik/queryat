@@ -23,7 +23,7 @@ def extract_names(row):
   return result
 
 @app.route('/qr')
-def query():
+def query_regions():
   lat = request.args.get('lat')
   lon = request.args.get('lon')
   conn = psycopg2.connect(config.CONNECTION)
