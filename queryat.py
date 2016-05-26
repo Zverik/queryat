@@ -16,7 +16,7 @@ def extract_names(row):
   """Returns a dict with names from the database."""
   result = {}
   for col in row.keys():
-    if row[col] is not None and len(row[col]) > 0:
+    if col.startswith('name') and row[col] is not None and len(row[col]) > 0:
       if col == 'name':
         result['name'] = row[col]
       elif 'name:' in col and row[col]:
