@@ -22,6 +22,24 @@ def extract_names(row):
       result[col[5:]] = row[col]
   return result
 
+@app.route('/qr')
+def query():
+  lat = request.args.get('lat')
+  lon = request.args.get('lon')
+  conn = psycopg2.connect(config.CONNECTION)
+  cur = conn.cursor(cursor_factory=DictCursor)
+  cur.execute("""SELECT * FROM {}_polygon WHERE admin_level in ('2', '4') and ST_Contains(way, ST_SetSRID(ST_Point(%s, %s), 4326));""".format(config.PREFIX), (lon, lat))
+  countries = []
+  regions = []
+  for row in cur:
+    names = extract_names(row)
+    if row['admin_level'] == '2':
+      countries.append(names)
+    elif row['admin_level'] == '4':
+      regions.append(names)
+  conn.close()
+  return jsonify(countries=countries, regions=regions)
+
 @app.route('/q')
 def query():
   lat = request.args.get('lat')
