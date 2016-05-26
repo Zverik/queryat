@@ -16,10 +16,11 @@ def extract_names(row):
   """Returns a dict with names from the database."""
   result = {}
   for col in row.keys():
-    if col == 'name':
-      result['name'] = row[col]
-    elif 'name:' in col and row[col]:
-      result[col[5:]] = row[col]
+    if row[col] is not None and len(row[col]) > 0:
+      if col == 'name':
+        result['name'] = row[col]
+      elif 'name:' in col and row[col]:
+        result[col[5:]] = row[col]
   return result
 
 @app.route('/qr')
@@ -33,6 +34,8 @@ def query_regions():
   regions = []
   for row in cur:
     names = extract_names(row)
+    if len(names) == 0:
+      continue
     if row['admin_level'] == '2':
       countries.append(names)
     elif row['admin_level'] == '4':
@@ -53,6 +56,8 @@ def query():
   town = None
   for row in cur:
     names = extract_names(row)
+    if len(names) == 0:
+      continue
     if row['admin_level'] == '2':
       countries.append(names)
     elif row['admin_level'] == '4':
