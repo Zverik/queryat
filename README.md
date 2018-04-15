@@ -15,17 +15,17 @@ it a geocoder if you like. Works on the OpenStreetMap software stack.
 The database would be around 3 GB. You can do a little cleanup:
 
 * `psql gis`
-* `drop table ad_roads; drop table ad_line;`
-* `delete from ad_point where place is null;`
+* `drop table at_roads; drop table at_line;`
+* `delete from at_point where place is null;`
 * `\q`
 
-Now set up the API. You can just run `queryad.py`, which creates a server at `localhost:5000`,
-but it's better to learn WSGI and use the supplied `queryad.wsgi` file.
+Now set up the API. You can just run `queryat.py`, which creates a server at `localhost:5000`,
+but it's better to learn WSGI and use the supplied `queryat.wsgi` file.
 
 ## API
 
-`localhost/queryad/q?lat=12.345&lon=67.890` would give you a JSON with names (and translations,
-see the source code and `ad.style`) for each administrative division and town that have that point.
+`localhost/queryat/q?lat=12.345&lon=67.890` would give you a JSON with names (and translations,
+see the source code and `at.style`) for each administrative division and town that have that point.
 
 ## Author and License
 
