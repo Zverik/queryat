@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from flask import Flask, request, jsonify
-from flask.ext.cors import CORS
+from flask_cors import CORS
 import psycopg2
 import config
 from psycopg2.extras import DictCursor
